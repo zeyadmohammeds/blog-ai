@@ -1,8 +1,6 @@
 {
   "name": "blog-ai",
   "version": "1.0.0",
-  "description": "AI Blog Automation",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node scripts/generate.js"
