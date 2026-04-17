@@ -1,14 +1,13 @@
 {
   "name": "blog-ai",
   "version": "1.0.0",
-  "description": "AI Blog Generator",
+  "description": "AI Blog Automation",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node scripts/generate.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
 }
