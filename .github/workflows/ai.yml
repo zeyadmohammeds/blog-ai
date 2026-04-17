@@ -1,0 +1,38 @@
+name: AI Blog Generator
+
+on:
+  push:
+    paths:
+      - "posts/*.md"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - name: Generate Blog with Gemini
+        run: node scripts/generate.js posts/my-post.md
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "ai-bot"
+          git config --global user.email "bot@github.com"
+          git add .
+          git commit -m "AI generated blog"
+          git push
+
+      - name: Publish to dev.to
+        run: node scripts/publish-devto.js
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
