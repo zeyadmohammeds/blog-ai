@@ -43,7 +43,21 @@ Return JSON ONLY:
 );
 
 const data = await res.json();
-const output = JSON.parse(data.candidates[0].content.parts[0].text);
+const candidate = data?.candidates?.[0];
+
+if (!candidate) {
+  console.error("No candidates returned from Gemini:", data);
+  process.exit(1);
+}
+
+const text = candidate?.content?.parts?.[0]?.text;
+
+if (!text) {
+  console.error("No text in Gemini response:", data);
+  process.exit(1);
+}
+
+const output = JSON.parse(text);
 
 // overwrite file
 const newContent = `
